@@ -10,10 +10,10 @@ First, install the required ```g++``` compiler of version 9 or higher. Then just
 
 ### How to use:
 #### On linux:
-    ```./fsearcher <filename> <startFolder>```
+```./fsearcher <filename> <startFolder>```
 
 #### On Windows:
-    ```fsearcher.exe <filename> <startFolder>```
+```fsearcher.exe <filename> <startFolder>```
 
 where 
 > ```<filename>```  - the name of the file that you would like to find
