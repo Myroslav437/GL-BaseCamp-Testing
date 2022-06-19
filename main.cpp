@@ -3,21 +3,17 @@
 #include <atomic>
 #include <chrono>
 
-#include "fsearch/simplethreadpool.hpp"
-
-void func() {
-    static std::atomic_int i = 0;
-
-    std::cout << "Call: " << i++ << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-}
+#include "fsearch/thrpoolrecsearch.hpp"
 
 int main(int argc, char *argv[]) {
-    SimpleThreadPool pool(5);
+    fsearch::ThrPoolRecSearch search;
+    search.setLogStream(&std::cout);
+    search.setThreadNum(8);
 
-    for(int i = 0; i < 50; ++i) {
-        pool.addTask(func);
-    }
+    auto res = search.execute("/", ".gitikgnore");
+    auto finalRes = res.get();
+
+    std::cout << std::endl << std::endl << finalRes << std::endl << std::endl;
 
     return 0;
 }
