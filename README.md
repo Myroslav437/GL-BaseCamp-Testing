@@ -16,8 +16,8 @@ First, install the required ```g++``` compiler of version 9 or higher. Then just
 ```fsearcher.exe <filename> <startFolder>```
 
 where 
-> ```<filename>```  - the name of the file that you would like to find
-> ```<startFolder>``` - the folder from which searching is started (your root folder by default)
+- ```<filename>```  - the name of the file that you would like to find
+- ```<startFolder>``` - the folder from which searching is started (your root folder by default)
 
 ### How it works:
 This program uses multiple threads (8 by default) to perform the recursive directory search from the starting folder.
