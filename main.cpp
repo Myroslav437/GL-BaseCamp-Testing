@@ -10,10 +10,12 @@ int main(int argc, char *argv[]) {
     search.setLogStream(&std::cout);
     search.setThreadNum(8);
 
-    auto res = search.execute("/", ".gitikgnore");
+    auto res = search.execute("/", ".gitignore");
     auto finalRes = res.get();
 
-    std::cout << std::endl << std::endl << finalRes << std::endl << std::endl;
+    std::cout   << std::endl << std::endl 
+                << "Found file: " << finalRes 
+                << std::endl << std::endl;
 
     return 0;
 }

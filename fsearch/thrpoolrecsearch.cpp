@@ -18,7 +18,11 @@ static void threadPoolRecursiveSearch(
     bool* successPtr
 );
 
-static fs::path execute_(fs::path startFolder, fs::path fileName, unsigned int threadNum, std::ostream* os); 
+static fs::path execute_(    
+    fs::path startFolder, 
+    fs::path fileName,
+    unsigned int threadNum,
+    std::ostream* os); 
 
 std::future<fs::path> ThrPoolRecSearch::execute(
             fs::path startFolder, 
@@ -30,7 +34,6 @@ std::future<fs::path> ThrPoolRecSearch::execute(
 static fs::path execute_(            
     fs::path startFolder, 
     fs::path fileName,
-    std::
     unsigned int threadNum,
     std::ostream* os
     ) 
@@ -41,7 +44,7 @@ static fs::path execute_(
     tp.addTask(threadPoolRecursiveSearch, startFolder, &fileName, &tp, os, &result, &success);
     tp.waitAll();
 
-    // if nothing found return empty string
+    // return empty string if nothing found
     if(!success) {
         result = fs::path();
     }
@@ -59,23 +62,30 @@ static void threadPoolRecursiveSearch(
 ) 
 {
     try{
-        *os << "Searching in" << startFolder << std::endl;
-
+        // in most compilers std::ostream::operator<<() is thread-safe
+        (*os) << "Searching in " + startFolder.string() + "\n";
+        
+        // iterate through every element in the folder
         std::for_each(
             fs::directory_iterator(startFolder),
             fs::directory_iterator(),
-            [&](const fs::directory_entry& dir_entry) {
+            [&](const fs::directory_entry& dir_entry) 
+            {
                 fs::path fname = dir_entry.path().filename();
-                if(fname == *fileNamePtr) {
 
-                    *os << "File found in" << dir_entry.path() << std::endl;
+                // found required file
+                if(fname == *fileNamePtr) {
+                    *os << "*** File found in" + dir_entry.path().string() + " ***" + "\n";
 
                     tpPtr->softShutdown();
+
+                    // set results
                     *resultPtr = dir_entry.path();
                     *successPtr = true;
                 }
                 else if(dir_entry.is_directory()) {
-                    tpPtr->addTask(threadPoolRecursiveSearch, startFolder/fname, fileNamePtr, tpPtr, resultPtr, successPtr);
+                    // add subdirectories as tasks to the thread pool
+                    tpPtr->addTask(threadPoolRecursiveSearch, startFolder/fname, fileNamePtr, tpPtr, os, resultPtr, successPtr);
                 }
             } 
         );
