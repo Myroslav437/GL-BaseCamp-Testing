@@ -23,4 +23,5 @@ where
 This program uses multiple threads (8 by default) to perform the recursive directory search from the starting folder.
 All searching logic is implemented in a separate static library so it can be used in other projects
 The class diagram of the program:
-![Alt text](/Class\ diagram.jpg?raw=true "Class diagram")
+    
+![Class diagram](https://github.com/Myroslav437/GL-BaseCamp-Testing/blob/main/Class%20diagram.png)
