@@ -11,7 +11,8 @@ namespace fsearch {
     public:
         virtual std::future<std::filesystem::path> execute(
             std::filesystem::path startFolder, 
-            std::filesystem::path fileName
+            std::filesystem::path fileName,
+            std::launch policy
         ) = 0;
     };
 

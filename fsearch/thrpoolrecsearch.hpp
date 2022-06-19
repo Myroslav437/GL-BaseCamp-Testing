@@ -10,9 +10,12 @@ namespace fsearch
 class ThrPoolRecSearch : public ThreadedSearchStrategy, public VerboseSearchStrategy 
 {
     public:
+    ThrPoolRecSearch(unsigned int num, std::ostream* os);
+
     virtual std::future<std::filesystem::path> execute(
             std::filesystem::path startFolder, 
-            std::filesystem::path fileName
+            std::filesystem::path fileName,
+            std::launch policy
         ) override;
 
     private:

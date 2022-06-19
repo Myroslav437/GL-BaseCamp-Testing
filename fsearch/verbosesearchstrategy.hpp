@@ -11,6 +11,9 @@ namespace fsearch
     class VerboseSearchStrategy : virtual public SearchStrategy 
     {
     public:
+        VerboseSearchStrategy() {};
+        VerboseSearchStrategy(std::ostream* os) : logStream(os)  {};
+
         void setLogStream(std::ostream* os) {this->logStream = os;};
         std::ostream* getLogStream() {return logStream;};
 

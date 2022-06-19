@@ -32,7 +32,8 @@
 *.app
 
 # Visual studio code files
-.vscode/
+#.vscode/
+*.log
 
 # Binaries folder
 bin/
